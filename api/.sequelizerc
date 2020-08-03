@@ -1,0 +1,11 @@
+"use strict";
+
+const path = require("path");
+
+module.exports = {
+  config: path.join(__dirname, "application/config/database.json"),
+  "migrations-path": path.join(__dirname, "application/migrations"),
+  "seeders-path": path.join(__dirname, "application/seeders"),
+  "models-path": path.join(__dirname, "application/models"),
+  "options-path": path.join(__dirname, "application/config/options.json")
+};

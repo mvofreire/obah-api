@@ -1,0 +1,40 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    [
+      "module-resolver",
+      {
+        "root": ["./application"],
+        "alias": {
+          "@app": "./application/middlewares",
+          "models": "./application/models",
+          "constants": "./application/constants",
+          "routes": "./application/routes",
+          "components": "./application/components",
+          "controllers": "./application/controllers",
+          "config": "./application/config"
+        }
+      }
+    ],
+    [
+      "transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true
+      }
+    ]
+  ]
+}

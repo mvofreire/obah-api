@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "obah_db_user",
+    "password": "obah_db_password",
+    "database": "obah_db",
+    "host": "db",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "obah_db_user",
+    "password": "obah_db_password",
+    "database": "obah_db",
+    "host": "db",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "klvoggwrzqufkl",
+    "password": "da6c695c4724c1f766b5ef30ba3cd888d2fcdda0b4928c040329855999cef158",
+    "database": "dahv5ugai3c7qm",
+    "host": "ec2-18-211-48-247.compute-1.amazonaws.com",
+    "dialect": "postgres"
+  }
+}
