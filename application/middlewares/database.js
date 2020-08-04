@@ -3,7 +3,6 @@ import Sequelize from "sequelize";
 
 const ENV = process.env.NODE_ENV;
 const config = databaseConfig[ENV];
-console.log(ENV);
 const sequelize = new Sequelize(
   config.database,
   config.username,

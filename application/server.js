@@ -1,5 +1,4 @@
-require('dotenv').config();
-console.log(process.env);
+require("dotenv").config();
 import "@babel/polyfill/noConflict";
 import "./middlewares/database";
 
@@ -11,13 +10,13 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import http from "http";
-import morgan from 'morgan'
+import morgan from "morgan";
 
 const app = express();
 const server = http.createServer(app);
 
 app.use(cors({ origin: "*", methods: "*" }));
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 registerSockets(server);
 app.use(bodyParser.json());
