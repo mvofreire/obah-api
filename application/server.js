@@ -15,7 +15,7 @@ import morgan from "morgan";
 const app = express();
 const server = http.createServer(app);
 
-app.use(cors({ origin: "*", methods: "*" }));
+app.use(cors({ origin: "https://obah-frontend.herokuapp.com" }));
 app.use(morgan("dev"));
 
 registerSockets(server);
