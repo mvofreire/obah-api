@@ -1,0 +1,102 @@
+version: "3.7"
+
+services:
+  #region DATABASE
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - obah_network_backend
+    environment:
+      POSTGRES_USER: obah_db_user
+      POSTGRES_PASSWORD: obah_db_password
+      POSTGRES_DB: obah_db
+  smtp:
+    container_name: obah-smtp
+    image: mailhog/mailhog
+    command: ["-smtp-bind-addr", "0.0.0.0:1025"]
+    user: root
+    networks:
+      - obah_network_backend
+    expose:
+      - 1025
+      - 8025
+    ports:
+      - 1025:1025
+      - 8025:8025
+    healthcheck:
+      test: echo | telnet 127.0.0.1 1025
+  #endregion
+
+  #region QUEUE
+  # queue:
+  #   container_name: obah-queue
+  #   image: rabbitmq:3
+  #   hostname: obah-queue
+  #   ports:
+  #     - "5672:5672"
+  #   environment:
+  #     - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=200Mib
+  # queue-management:
+  #   container_name: obah-queue-management
+  #   image: rabbitmq:3-management
+  #   ports:
+  #     - "8080:15672"
+  #   hostname: obah-queue
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=obah
+  #     - RABBITMQ_DEFAULT_PASS=123123
+  #endregion
+
+  #region Router
+  # router:
+  #   container_name: obah_router
+  #   image: nginx
+  #   volumes:
+  #     - ./router/default.conf:/etc/nginx/conf.d/default.conf
+  #   ports:
+  #     - "8888:80"
+  #   depends_on:
+  #     - db
+  #     - queue
+  #     - api
+  #     - web
+  #   networks:
+  #     - obah_network_frontend
+  #     - obah_network_backend
+  #   environment:
+  #     - NGINX_PORT=80
+  #   command: /bin/bash -c "exec nginx -g 'daemon off;'"
+  # endregion
+
+  #region services
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
+    ports:
+      - "5000:5000"
+    env_file: .env
+    depends_on:
+      - db
+    networks:
+      - obah_network_backend
+    links:
+      - db
+      - smtp
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+  #endregion
+volumes:
+  db_obah_volume:
+networks:
+  obah_network_backend:
+  obah_network_frontend:
