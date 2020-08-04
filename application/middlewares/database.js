@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
     host: config.host,
     dialect: config.dialect,
     syncOnAssociation: false,
-    logging: false,
+    // logging: false,
     sync: { force: false },
     define: {
       syncOnAssociation: false,
