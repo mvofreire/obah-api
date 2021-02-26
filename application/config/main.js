@@ -16,6 +16,7 @@ export default {
     "/client/register",
     "/token",
     "/system/status",
+    "/store"
   ],
 
   database: {
