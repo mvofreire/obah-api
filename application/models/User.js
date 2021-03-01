@@ -11,29 +11,29 @@ class User extends Model {
         type: DataTypes.INTEGER(),
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       name: {
         type: DataTypes.STRING(255),
-        allowNull: false
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING(255),
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING(),
-        allowNull: false
+        allowNull: false,
       },
       completeProfile: {
         type: DataTypes.ENUM,
-        values: Object.values(USER_COMPLETE_PROFILE)
+        values: Object.values(USER_COMPLETE_PROFILE),
       },
       facebook: { type: DataTypes.STRING(255) },
       config: {
-        type: DataTypes.JSONB
-      }
+        type: DataTypes.JSONB,
+      },
     });
   }
 
@@ -50,7 +50,7 @@ class User extends Model {
     this.hasMany(Event, {
       as: "myEvents",
       foreignKey: "user_id",
-      sourceKey: "id"
+      sourceKey: "id",
     });
   }
 
@@ -59,14 +59,14 @@ class User extends Model {
     const usuario = await this.create({
       ...data,
       password: hashedPassword,
-      completeProfile: USER_COMPLETE_PROFILE.INCOMPLETE
+      completeProfile: USER_COMPLETE_PROFILE.INCOMPLETE,
     });
     return usuario;
   }
 
   static async findUserWithRolesAuthenticate(email, password) {
     const usuario = await this.findOne({
-      where: { email }
+      where: { email },
     });
 
     if (!usuario) {
@@ -77,6 +77,10 @@ class User extends Model {
     } else {
       throw "E-mail ou senha estão incorretos";
     }
+  }
+
+  static async findUserByFacebook(facebookID) {
+    return this.findOne({ where: { facebook: facebookID } });
   }
 }
 
