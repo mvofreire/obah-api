@@ -29,19 +29,22 @@ class Client extends Model {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      logo: { type: DataTypes.STRING },
       active: { type: DataTypes.BOOLEAN },
       recovery_password_token: {
         type: DataTypes.STRING(255),
+      },
+      logoUrl: {
+        type: DataTypes.VIRTUAL,
+        get: function () {
+          return `http://localhost:5000/static/${this.logo}`;
+        },
       },
     });
   }
 
   static associate({ Offer, OfferProgram }) {
-    this.hasMany(Offer, {
-      as: "offers",
-      foreignKey: "owner_id",
-      sourceKey: "id",
-    });
+    this.hasMany(Offer);
   }
 
   static async createNewClient({ password, ...data }) {

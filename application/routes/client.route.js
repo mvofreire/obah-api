@@ -5,8 +5,15 @@ import multerConfig from "config/multer";
 export const ClientRoute = (app) => {
   app
     .route("/client/offer")
-    .post(multer(multerConfig).single("file"), ClientController.createOffer)
+    .post(multer(multerConfig).array("images"), ClientController.createOffer)
     .get(ClientController.loadMyOffers);
+
+  app
+    .route("/client/offer/uploadImage")
+    .post(
+      multer(multerConfig).single("file"),
+      ClientController.uploadImageOffer
+    );
 
   app
     .route("/client/offer/:id")
@@ -15,4 +22,7 @@ export const ClientRoute = (app) => {
     .delete(ClientController.removeOffer);
 
   app.route("/client/email-exists").post(ClientController.checkIfEmailExists);
+  app
+    .route("/client/update")
+    .post(multer(multerConfig).single("logo"), ClientController.updateClient);
 };

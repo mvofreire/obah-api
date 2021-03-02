@@ -12,8 +12,9 @@ const storageTypes = {
     },
     filename: (req, file, cb) => {
       crypto.randomBytes(16, (err, hash) => {
+        const [, ext] = file.originalname.split(".");
         if (err) cb(err);
-        file.key = `${hash.toString("hex")}-${file.originalname}`;
+        file.key = `${hash.toString("hex")}.${ext}`;
         cb(null, file.key);
       });
     },

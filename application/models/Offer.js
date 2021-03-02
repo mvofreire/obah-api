@@ -26,8 +26,9 @@ class Offer extends Model {
     });
   }
 
-  static associate({ Client, Event }) {
-
+  static associate({ OfferImage, Client }) {
+    this.hasMany(OfferImage);
+    this.belongsTo(Client);
   }
 }
 

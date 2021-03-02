@@ -1,4 +1,5 @@
 require("dotenv").config();
+import path from "path";
 import "@babel/polyfill/noConflict";
 import "./middlewares/database";
 
@@ -20,6 +21,10 @@ app.use(morgan("dev"));
 
 registerSockets(server);
 app.use(bodyParser.json());
+app.use(
+  "/static",
+  express.static(path.join(__dirname, "..", "tmp", "uploads"))
+);
 app.use(userSession);
 registerRoutes(app);
 

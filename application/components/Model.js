@@ -14,8 +14,8 @@ class Model extends SequelizeModel {
       tableName: this.tableName,
       defaultScope: this.defaultScope(),
       scopes: this.scopes(),
-      hooks: this.hooks(),
-      syncOnAssociation: false,
+      hooks: this.hooks,
+      syncOnAssociation: true,
       sync: { force: false },
       // ...options
     });
@@ -29,9 +29,10 @@ class Model extends SequelizeModel {
     return {};
   }
 
-  static hooks() {
-    return {};
-  }
+  // static hooks() {
+  //   console.log('hooks2');
+  //   return {};
+  // }
 
   static filter() {
     return {};
