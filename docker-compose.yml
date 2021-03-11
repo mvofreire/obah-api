@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  #region DATABASE
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - obah_network_backend
+    environment:
+      POSTGRES_USER: obah_db_user
+      POSTGRES_PASSWORD: obah_db_password
+      POSTGRES_DB: obah_db
+  smtp:
+    container_name: obah-smtp
+    image: mailhog/mailhog
+    command: ["-smtp-bind-addr", "0.0.0.0:1025"]
+    user: root
+    networks:
+      - obah_network_backend
+    expose:
+      - 1025
+      - 8025
+    ports:
+      - 1025:1025
+      - 8025:8025
+    healthcheck:
+      test: echo | telnet 127.0.0.1 1025
+  #endregion
+
+volumes:
+  db_obah_volume:
+networks:
+  obah_network_backend:
