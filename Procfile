@@ -1,1 +1,1 @@
-web: cd build && yarn build && yarn start
+web: cd build && node server.js
