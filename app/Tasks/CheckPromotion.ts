@@ -1,5 +1,4 @@
 import { BaseTask } from 'adonis5-scheduler/build'
-import PromotionService from '@ioc:Services/PromotionService'
 import { PROMOTION_STATUS } from 'App/Enums/Promotion'
 import Promotion from 'App/Models/Promotion'
 

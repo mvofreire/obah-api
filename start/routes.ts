@@ -18,7 +18,6 @@
 |
 */
 
-import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import Route from '@ioc:Adonis/Core/Route'
 
 //Api
