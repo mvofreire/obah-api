@@ -33,6 +33,9 @@ export default class Promotion extends BaseModel {
   @column.dateTime()
   public endDate: DateTime
 
+  @column()
+  public position: Record<string, number>
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -65,5 +68,18 @@ export default class Promotion extends BaseModel {
   @computed()
   public get totalParticipants() {
     return this.$extras.participants_count
+  }
+
+  public participating: boolean
+  public _voucherId: number | undefined
+
+  @computed()
+  public get isParticipating(): boolean {
+    return this.participating
+  }
+
+  @computed()
+  public get voucherId() {
+    return this._voucherId
   }
 }

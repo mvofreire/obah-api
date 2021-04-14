@@ -26,11 +26,4 @@ export default class ClientsController {
     const { id } = params
     return await PromotionService.loadByClient(id)
   }
-
-  public async loadMyVouchers({ auth }: HttpContextContract) {
-    const user = await auth.user
-    if (user) {
-      return await UserPromotionService.loadVouchersByClient(user.id)
-    }
-  }
 }

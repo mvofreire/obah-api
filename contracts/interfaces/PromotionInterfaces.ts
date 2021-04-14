@@ -12,7 +12,7 @@ export interface IPromotionService {
     clientId: number,
     includes?: ExtractModelRelations<Promotion>[]
   ): Promise<Promotion[]>
-  loadById(id: number): Promise<Promotion>
+  loadById(id: number, requesterUserId?: number): Promise<Promotion>
   loadByStatus(status: PROMOTION_STATUS): Promise<Promotion[]>
   attachImage(id: number, file: MultipartFileContract): Promise<PromotionImage>
   loadHighligthPromotions(): Promise<Promotion[]>

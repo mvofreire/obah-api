@@ -7,6 +7,7 @@ import { FileUploadDTO } from 'Contracts/Dtos/promotion/FileUploadDTO'
 import { ExtractModelRelations } from '@ioc:Adonis/Lucid/Relations'
 import User from 'App/Models/User'
 import { PROMOTION_STATE, PROMOTION_STATUS } from 'App/Enums/Promotion'
+import { XRay } from 'aws-sdk'
 
 export class PromotionService implements IPromotionService {
   public async attachImage(id: number, file: MultipartFileContract): Promise<PromotionImage> {
@@ -66,8 +67,20 @@ export class PromotionService implements IPromotionService {
     return data
   }
 
-  public async loadById(id: number): Promise<Promotion> {
-    return Promotion.findOrFail(id)
+  public async loadById(id: number, requesterUserId?: number): Promise<Promotion> {
+    const model = await Promotion.findOrFail(id)
+
+    await model.preload('images')
+    await model.preload('store')
+    await model.preload('participants')
+
+    if (!!requesterUserId) {
+      const _partipant = model.participants?.map((x) => x.userId).includes(requesterUserId)
+      model.participating = _partipant
+      const voucher = model.participants.find((x) => x.userId === requesterUserId)
+      model._voucherId = voucher?.id
+    }
+    return model
   }
 
   public async loadByStatus(status: PROMOTION_STATUS): Promise<Promotion[]> {

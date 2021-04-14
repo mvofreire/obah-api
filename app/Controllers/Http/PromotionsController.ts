@@ -29,9 +29,9 @@ export default class PromotionsController {
     return false
   }
 
-  public async show({ params }: HttpContextContract) {
+  public async show({ params, auth }: HttpContextContract) {
     const { id } = params
-    const model = await PromotionService.loadById(id)
+    const model = await PromotionService.loadById(id, auth.user?.id)
     return model
   }
 

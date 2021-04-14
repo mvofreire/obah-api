@@ -22,8 +22,8 @@ export default class CheckPromotion extends BaseTask {
 
     const promises: Promise<Promotion>[] = []
     data.forEach((promo) => {
-      console.log(`- Ativando Promoção ${promo.id}`)
       if (promo.images.length > 0) {
+        console.log(`- Ativando Promoção ${promo.id}`)
         promo.status = PROMOTION_STATUS.Active
         promises.push(promo.save())
       }

@@ -34,13 +34,18 @@ Route.group(() => {
     //Authenticated Routes
     Route.group(() => {
       Route.resource('user', 'UsersController').except(['store']).apiOnly()
+      Route.get('/me', 'UsersController.showLoggedUser')
       Route.post('/user/attach-image', 'UsersController.attachImage')
       Route.post('/user/image', 'UsersController.changeImage')
+
+      Route.resource('promotion', 'PromotionsController').apiOnly()
+
+      Route.get('/vouchers', 'VoucherController.index')
+      Route.get('/vouchers/:id', 'VoucherController.show')
 
       // Only Stores
       Route.group(() => {
         //Promotion
-        Route.resource('promotion', 'PromotionsController').apiOnly()
         Route.post('/promotion/attach-image', 'PromotionsController.attachImage')
         Route.get('/tags', 'TagsController.index')
       }).middleware('storeRoutes')
@@ -50,7 +55,7 @@ Route.group(() => {
         Route.get('/store', 'StoresController.index')
 
         Route.post('/client/add-voucher', 'ClientsController.addVoucher')
-        Route.get('/vouchers', 'ClientsController.loadMyVouchers')
+        // Route.get('/vouchers', 'ClientsController.loadMyVouchers')
 
         Route.get('/highlight-promotions', 'ClientsController.loadHighlightPromotions')
         Route.get('/popular-promotions', 'ClientsController.loadPopularPromotions')

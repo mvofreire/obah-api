@@ -19,9 +19,7 @@
     "./start/kernel",
     {
       "file": "./start/StartTaskScheduler",
-      "environment": [
-        "web"
-      ]
+      "environment": ["web"]
     }
   ],
   "providers": [
@@ -31,7 +29,5 @@
     "@adonisjs/auth",
     "adonis5-scheduler"
   ],
-  "aceProviders": [
-    "@adonisjs/repl"
-  ]
+  "aceProviders": ["@adonisjs/repl"]
 }

@@ -43,4 +43,8 @@ export default class UsersController {
       return UserService.changeImage(user.id, file)
     }
   }
+
+  public async showLoggedUser({ auth }: HttpContextContract) {
+    return auth.user
+  }
 }
