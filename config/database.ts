@@ -42,7 +42,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
         user: Env.get('PG_USER'),
         password: Env.get('PG_PASSWORD', ''),
         database: Env.get('PG_DB_NAME'),
-        ssl: Env.get('NODE_ENV') !== 'production' ? { rejectUnauthorized: false } : true,
+        ssl: { rejectUnauthorized: false }, // after add ssl in prod check if is production and change it for ssl:TRUE
       },
       healthCheck: false,
       debug: true,
