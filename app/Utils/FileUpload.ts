@@ -11,7 +11,7 @@ export class FileUpload implements IFileUpload {
   constructor() {
     AWS.config.update({ region: 'us-east-1' })
     this.s3 = new AWS.S3({ apiVersion: '2006-03-01' })
-    this.bucket = 'obah-file-storage'
+    this.bucket = process.env.AWS_S3_BUCKET || 'obah-file-storage'
   }
 
   public async uploadImage(filePath: string, mimetype: string): Promise<FileUploadDTO> {
