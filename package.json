@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "node ace build --production",
-    "start": "node server.js",
+    "start": "node ace migration:run && cd build && node server.js",
     "dev": "node ace serve --watch",
     "debug": "node ace serve --watch --debug",
     "lint": "eslint . --ext=.ts",
