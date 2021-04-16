@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import UserService from '@ioc:Services/UserService'
 import PromotionService from '@ioc:Services/PromotionService'
-import UserPromotionService from '@ioc:Services/UserPromotionService'
+import { USER_TYPE } from 'App/Enums/User'
 
 export default class ClientsController {
   public async addVoucher({ request, auth }: HttpContextContract) {
@@ -25,5 +25,15 @@ export default class ClientsController {
   public async loadPromotionByStore({ params }: HttpContextContract) {
     const { id } = params
     return await PromotionService.loadByClient(id)
+  }
+
+  public async emailExists({ request }: HttpContextContract) {
+    const { email } = request.post()
+    const model = await UserService.loadByEmail(email)
+    if (model.type === USER_TYPE.Client) {
+      return model
+    } else {
+      throw new Error('Não existe nenhuma Loja com esse e-mail')
+    }
   }
 }

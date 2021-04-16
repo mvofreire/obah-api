@@ -30,6 +30,7 @@ Route.group(() => {
     Route.post('/register/client', 'AuthController.registerClient')
     Route.post('/register/store', 'AuthController.registerStore')
     Route.post('/store/email-exists', 'StoresController.emailExists')
+    Route.post('/client/email-exists', 'ClientsController.emailExists')
 
     //Authenticated Routes
     Route.group(() => {
