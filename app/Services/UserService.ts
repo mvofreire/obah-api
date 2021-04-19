@@ -12,8 +12,8 @@ export class UserService implements IUserService {
   public async loadStore(id: number): Promise<User | null> {
     const query = User.query()
 
-    query.whereColumn('id', id.toString())
-    query.whereColumn('type', USER_TYPE.Store)
+    query.where('id', id)
+    query.where('type', USER_TYPE.Store)
 
     return query.first()
   }
@@ -21,8 +21,8 @@ export class UserService implements IUserService {
   public async loadClient(id: number): Promise<User | null> {
     const query = User.query()
 
-    query.whereColumn('id', id.toString())
-    query.whereColumn('type', USER_TYPE.Client)
+    query.where('id', id)
+    query.where('type', USER_TYPE.Client)
 
     return query.first()
   }

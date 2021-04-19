@@ -54,6 +54,7 @@ Route.group(() => {
       // Only App mobile Clients
       Route.group(() => {
         Route.get('/store', 'StoresController.index')
+        Route.get('/store/:id', 'StoresController.show')
 
         Route.post('/client/add-voucher', 'ClientsController.addVoucher')
         // Route.get('/vouchers', 'ClientsController.loadMyVouchers')

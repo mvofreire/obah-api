@@ -8,6 +8,16 @@ export default class StoresController {
     return data
   }
 
+  public async show({ request, response }: HttpContextContract) {
+    const { id } = request.params()
+    const store = await UserService.loadStore(id)
+    if (!!store) {
+      return store
+    } else {
+      return response.notFound()
+    }
+  }
+
   public async emailExists({ request }: HttpContextContract) {
     const { email } = request.post()
     const model = await UserService.loadByEmail(email)
