@@ -42,4 +42,5 @@ Server.middleware.registerNamed({
   auth: 'App/Middleware/Auth',
   storeRoutes: 'App/Middleware/StoreRoute',
   clientRoutes: 'App/Middleware/ClientRoute',
+  validator: 'App/Middleware/Validator',
 })

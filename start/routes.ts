@@ -55,15 +55,16 @@ Route.group(() => {
       Route.group(() => {
         Route.get('/store', 'StoresController.index')
         Route.get('/store/:id', 'StoresController.show')
-
+        Route.get('/store/:id/promotions', 'StoresController.showPromotionsByStore')
         Route.post('/client/add-voucher', 'ClientsController.addVoucher')
-        // Route.get('/vouchers', 'ClientsController.loadMyVouchers')
-
+        Route.get('/promotion-in-bounds', 'PromotionsController.showInBounds')
         Route.get('/highlight-promotions', 'ClientsController.loadHighlightPromotions')
         Route.get('/popular-promotions', 'ClientsController.loadPopularPromotions')
         Route.get('/explore-promotions', 'ClientsController.loadExplorePromotions')
         Route.get('/store-promotion/:id', 'ClientsController.loadPromotionByStore')
       }).middleware('clientRoutes')
-    }).middleware('auth')
+    })
+      .middleware('auth')
+      // .middleware('validator')
   }).prefix('v1')
 }).prefix('api')

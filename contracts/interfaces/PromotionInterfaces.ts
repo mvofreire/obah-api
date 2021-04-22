@@ -15,6 +15,12 @@ export interface IPromotionService {
   loadById(id: number, requesterUserId?: number): Promise<Promotion>
   loadByStatus(status: PROMOTION_STATUS): Promise<Promotion[]>
   attachImage(id: number, file: MultipartFileContract): Promise<PromotionImage>
+  loadPromotionsInsideBounds(
+    north: number,
+    south: number,
+    east: number,
+    west: number
+  ): Promise<Promotion[]>
   loadHighligthPromotions(): Promise<Promotion[]>
   loadExplorePromotions(): Promise<Promotion[]>
   loadPopularPromotions(): Promise<Promotion[]>

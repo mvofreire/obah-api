@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Promotion from 'App/Models/Promotion'
 import User from 'App/Models/User'
+import { USER_PROMOTION_STATUS } from 'App/Enums/UserPromotion'
 
 export default class UserPromotion extends BaseModel {
   @column({ isPrimary: true })
@@ -15,6 +16,9 @@ export default class UserPromotion extends BaseModel {
 
   @column()
   public promotionId: number
+
+  @column()
+  public status: USER_PROMOTION_STATUS
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

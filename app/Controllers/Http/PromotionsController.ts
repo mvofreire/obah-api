@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import PromotionService from '@ioc:Services/PromotionService'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class PromotionsController {
   public async index({ auth, request }: HttpContextContract) {
@@ -45,5 +46,19 @@ export default class PromotionsController {
   public async destroy({ params }: HttpContextContract) {
     const { id } = params
     return await PromotionService.destroy(id)
+  }
+
+  public async showInBounds({ request }: HttpContextContract) {
+    const postsSchema = schema.create({
+      north: schema.number(),
+      south: schema.number(),
+      east: schema.number(),
+      west: schema.number(),
+    })
+    const { north, south, east, west } = await request.validate({
+      schema: postsSchema,
+    })
+    const data = PromotionService.loadPromotionsInsideBounds(north, south, east, west)
+    return data
   }
 }

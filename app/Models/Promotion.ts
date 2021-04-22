@@ -34,7 +34,10 @@ export default class Promotion extends BaseModel {
   public endDate: DateTime
 
   @column()
-  public position: Record<string, number>
+  public position_lat: number
+
+  @column()
+  public position_lng: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -6,5 +6,6 @@ export interface IUserPromotion {
   loadParticipantsByPromotion(promotionId: number): Promise<User[]>
   loadPromotionsByClient(clientId: number): Promise<Promotion[]>
   loadVouchersByClient(clientId: number): Promise<VoucherDTO[]>
+  loadPromotionsByStore(storeId: number): Promise<Promotion[]>
   loadVoucherById(id: number): Promise<VoucherDTO>
 }

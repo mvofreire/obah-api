@@ -7,7 +7,6 @@ import { FileUploadDTO } from 'Contracts/Dtos/promotion/FileUploadDTO'
 import { ExtractModelRelations } from '@ioc:Adonis/Lucid/Relations'
 import User from 'App/Models/User'
 import { PROMOTION_STATE, PROMOTION_STATUS } from 'App/Enums/Promotion'
-import { XRay } from 'aws-sdk'
 
 export class PromotionService implements IPromotionService {
   public async attachImage(id: number, file: MultipartFileContract): Promise<PromotionImage> {
@@ -115,5 +114,18 @@ export class PromotionService implements IPromotionService {
     query.where('is_removed', PROMOTION_STATE.Enabled)
 
     return await query
+  }
+
+  public async loadPromotionsInsideBounds(
+    north: number,
+    south: number,
+    east: number,
+    west: number
+  ): Promise<Promotion[]> {
+    const query = Promotion.query()
+    query.havingBetween('position_lat', [south, north])
+    query.havingBetween('position_lng', [west, east])
+    query.groupBy('id')
+    return query
   }
 }

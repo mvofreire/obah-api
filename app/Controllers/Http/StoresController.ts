@@ -1,5 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import UserService from '@ioc:Services/UserService'
+import UserPromotionService from '@ioc:Services/UserPromotionService'
+
 import { USER_TYPE } from 'App/Enums/User'
 
 export default class StoresController {
@@ -26,5 +28,11 @@ export default class StoresController {
     } else {
       throw new Error('Não existe nenhuma Loja com esse e-mail')
     }
+  }
+
+  public async showPromotionsByStore({ request }: HttpContextContract) {
+    const { id } = request.params()
+    const data = await UserPromotionService.loadPromotionsByStore(id)
+    return data
   }
 }
